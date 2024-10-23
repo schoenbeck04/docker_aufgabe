@@ -62,5 +62,3 @@ jobs:
       run: |
         timeout 120 sh -c 'until curl -sf http://localhost:8080/v1/dataset; do sleep 5; done'
 
-    - name: Stop and remove Docker containers
-      run: docker-compose down
