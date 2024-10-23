@@ -39,13 +39,12 @@ jobs:
           gradle-${{ runner.os }}
 
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: chmod +x ./leistungsnachweis/gradlew 
 
     - name: Build with Gradle
-      run: ./gradlew build
-
-    - name: Run unit tests
-      run: ./gradlew test
+      working-directory: ./leistungsnachweis
+      run: |
+        ./gradlew build
 
     - name: Build Docker Image
       run: docker build -t leistungsnachweis .
