@@ -46,11 +46,23 @@ jobs:
       run: |
         ./gradlew build
 
-    - name: Build Docker Image
-      run: docker build -t leistungsnachweis .
+    - name: Pull Assessment Image
+      run: docker pull mrksdh/assessment
 
-    - name: Start Docker Compose
-      run: docker-compose up -d
+      
+    - name: Install curl
+      run: |
+        sudo apt-get update && sudo apt-get install -y curl
+
+      
+    - name: Create Docker Network
+      run: |
+        docker network create my_network
+
+      
+    - name: Start Assessment Container
+      run: |
+        docker run -d --name assessment --network my_network -p 8080:8080 mrksdh/assessment
 
     - name: Wait for Assessment Service to be healthy
       run: |
