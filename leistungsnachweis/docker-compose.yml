@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  assessment:
+    image: mrksdh/assessment
+    ports:
+      - 8080:8080
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/v1/dataset"]
+      interval: 20s  # Zeit zwischen den Healthchecks
+      timeout: 10s   # Zeit, nach der ein Healthcheck als fehlgeschlagen gilt
+      retries: 5     # Anzahl der Versuche, bevor der Container als "unhealthy" markiert wird
+
+    networks:
+      - myNetwork
+
+  leistungsnachweis:
+    build: .
+    container_name: leistungsnachweis
+    depends_on:
+      - assessment
+    networks:
+      - myNetwork
+
+networks:
+  myNetwork:
+    internal: true
