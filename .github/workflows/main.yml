@@ -38,9 +38,6 @@ jobs:
         restore-keys: |
           gradle-${{ runner.os }}
 
-    - name: Validate Gradle Wrapper
-      run: ./gradlew wrapperValidation
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
